@@ -15,3 +15,18 @@ if(curtido == false){
 }
 
 document.getElementById("likeBtn").addEventListener("click", curtir);
+
+function descurtir() { 
+if(deslike == false){
+  deslikeCount++;
+  Deslike = true;
+  document.getElementById("DeslikeCount").innerText = DeslikeCount;
+} else{
+  deslikeCount--;
+  descurtir = false
+  document.getElementById("deslikeCount").innerText = DeslikeCount;
+}
+
+}
+
+document.getElementById("DeslikeBtn").addEventListener("click", curtir);
