@@ -1,8 +1,12 @@
+//--- ESTADO (dados da aplicação) ---
+
 let likeCount = 0;
 let deslikeCount = 0;
 
 let curtido = false;
 let descurtido = false;
+
+//--- SERVICE (regras de negócio)---
 
 function curtir() { 
   if (!curtido) {
@@ -30,4 +34,16 @@ function descurtir() {
   document.getElementById("deslikeCount").innerText = deslikeCount;
 }
 
-document.getElementById("deslikeBtn").addEventListener("click", descurtir);
+// --- CONTROLLER (intermediação)---
+
+function clicarCurtir(){
+  curtir();
+}
+
+function clicarDescurtir(){
+  descurtir();
+}
+
+// --- EVENTOS ---
+document.getElementById("deslikeBtn").addEventListener("click", clicarDescurtir);
+document.getElementById("likeBtn").addEventListener("click", clicarCurtir);
