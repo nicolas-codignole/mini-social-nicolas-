@@ -1,62 +1,86 @@
-//--- ESTADO (dados da aplicação) ---
+//=== BANCO DE DADOS (JSON Simulado) === 
 
-let likeCount = 0;
-let deslikeCount = 0;
-
-let curtido = false;
-let descurtido = false;
-
-//--- SERVICE (regras de negócio)---
-
-function curtir() { 
-  if (!curtido) {
-    likeCount++;
-    curtido = true;
-  } else {
-    likeCount--;
-    curtido = false;
-  }
-
-  
+let post = {
+  likeCount: 0,
+  dislikeCount: 0,
+  curtido: false,
+  descurtido: false
 }
 
+//=== SERVICE (regras de negócio) === 
 
+function curtir() {
+  if (post.curtido == false){
+    post.likeCount++;
+    post.curtido = true;
 
-function descurtir() { 
-  if (!descurtido) {
-    deslikeCount++;
-    descurtido = true;
-  } else {
-    deslikeCount--;
-    descurtido = false;
+    if(post.descurtido == true){
+      post.dislikeCount--;
+      post.descurtido = false;
+    }
+
+  }else{
+    post.likeCount--;
+    post.curtido = false;
   }
 
-  
 }
 
-//--- VIEW (interface/renderização)---
+function descurtir() {
+  if(post.descurtido == false){
+    post.dislikeCount++;
+    post.descurtido = true;
+
+    if(post.curtido == true){
+      post.likeCount--;
+      post.curtido = false;
+    }
+
+  }
+  else{
+    post.dislikeCount--;
+    post.descurtido = false;
+  }
+}
+
+//=== API SIMULADA === 
+
+function getPost(){
+  return post;
+}
+
+function likePost(){
+  curtir();
+  return post;
+}
+
+function dislikePost(){
+  descurtir();
+  return post;
+}
+
+// === VIEW (interface/renderização)===
 function atualizarTela(){
   document.getElementById("likeCount").innerText = likeCount;
-  document.getElementById("deslikeCount").innerText = deslikeCount;
+  document.getElementById("dislikeCount").innerText = dislikeCount;
 }
 
-// --- CONTROLLER (intermediação)---
+//=== CONTROLLER (intermediação)===
 
 function clicarCurtir(){
   curtir();
   atualizarTela();
 }
-
 function clicarDescurtir(){
   descurtir();
   atualizarTela();
 }
 
-// --- EVENTOS ---
-document.getElementById("deslikeBtn").addEventListener("click", clicarDescurtir);
+// === EVENTOS ===
+
 document.getElementById("likeBtn").addEventListener("click", clicarCurtir);
+document.getElementById("dislikeBtn").addEventListener("click", clicarDescurtir);
 
-
-// --- INICIALIZAÇÃO ---
+// === INICIALIZAÇÃO ===  
 
 atualizarTela();
