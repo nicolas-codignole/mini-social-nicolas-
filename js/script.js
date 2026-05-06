@@ -17,10 +17,10 @@ function curtir() {
     curtido = false;
   }
 
-  document.getElementById("likeCount").innerText = likeCount;
+  
 }
 
-document.getElementById("likeBtn").addEventListener("click", curtir);
+
 
 function descurtir() { 
   if (!descurtido) {
@@ -31,6 +31,12 @@ function descurtir() {
     descurtido = false;
   }
 
+  
+}
+
+//--- VIEW (interface/renderização)---
+function atualizarTela(){
+  document.getElementById("likeCount").innerText = likeCount;
   document.getElementById("deslikeCount").innerText = deslikeCount;
 }
 
@@ -38,12 +44,19 @@ function descurtir() {
 
 function clicarCurtir(){
   curtir();
+  atualizarTela();
 }
 
 function clicarDescurtir(){
   descurtir();
+  atualizarTela();
 }
 
 // --- EVENTOS ---
 document.getElementById("deslikeBtn").addEventListener("click", clicarDescurtir);
 document.getElementById("likeBtn").addEventListener("click", clicarCurtir);
+
+
+// --- INICIALIZAÇÃO ---
+
+atualizarTela();
